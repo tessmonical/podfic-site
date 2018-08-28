@@ -26,3 +26,13 @@ module.exports.getAll = (event, context, callback) => {
       callback(null, response);
     });
 };
+
+module.exports.getOne = (event, context, callback) => {
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify(event.pathParameters.id)
+  };
+  callback(null, response);
+
+
+}

@@ -79,7 +79,17 @@ functions:
           path: api/podfics/getAll
           method: get
           cors: true
-
+  getOnePodfic:
+    handler: podfics.getOne
+    events:
+      - http:
+          path: api/podfics/getOne/{id}
+          method: get
+          cors: true
+          request:
+              parameters:
+                paths:
+                  id: true
 
 
 # you can add CloudFormation resource templates here
