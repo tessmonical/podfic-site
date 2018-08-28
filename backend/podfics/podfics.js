@@ -28,11 +28,23 @@ module.exports.getAll = (event, context, callback) => {
 };
 
 module.exports.getOne = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify(event.pathParameters.id)
+  const params = {
+    TableName: process.env.PODFIC_TABLE,
+    KeyConditionExpression: "id = :id",
+    ExpressionAttributeValues: {
+      ":id": event.pathParameters.id
+    }
   };
-  callback(null, response);
 
-
-}
+  dynamoDb
+    .query(params)
+    .promise()
+    .then(items => items.Items)
+    .then(result => {
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify(result)
+      };
+      callback(null, response);
+    });
+};
