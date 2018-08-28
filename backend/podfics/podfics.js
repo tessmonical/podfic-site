@@ -1,22 +1,28 @@
-'use strict';
-
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-module.exports.getAll = async (event, context) => {
-
+module.exports.getAll = (event, context, callback) => {
   const params = {
-    TableName: process.env.PODFIC_TABLE,
-    Key: {
-      id: event.pathParameters.id,
-    },
+    TableName: process.env.PODFIC_TABLE
   };
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
-  };
+  dynamoDb
+    .scan(params)
+    .promise()
+    .then(items => items.Items)
+    .then(items => {
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify(items)
+      };
+      callback(null, response);
+    })
+    .catch(err => {
+      const response = {
+        statusCode: 500,
+        body: JSON.stringify(err)
+      };
+      console.error(err);
+      callback(null, response);
+    });
 };
