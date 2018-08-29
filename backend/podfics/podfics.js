@@ -1,6 +1,24 @@
 const AWS = require("aws-sdk");
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const getOneTag = require("./tags").getOne;
+
+// helper function to fetch tags
+const fetchTags = (tagList) => {
+  const tagPromises = tagList.map(tag => {
+    const tagParams = {
+      TableName: process.env.TAGS_TABLE,
+      KeyConditionExpression: "id = :id",
+      ExpressionAttributeValues: {
+        ":id": tag
+      }
+    };
+    return dynamoDb
+      .query(tagParams)
+      .promise()
+      .then(tags => tags.Items[0]);
+  });
+
+  return Promise.all(tagPromises);
+}
 
 module.exports.getAll = (event, context, callback) => {
   const params = {
@@ -11,32 +29,19 @@ module.exports.getAll = (event, context, callback) => {
     .scan(params)
     .promise()
     .then(items => items.Items)
-    .then(items => {
+    .then(podfics => {
       // get a list of all tags we need to fetch
-      const totalTags = items.reduce((acc, item) => {
-        item.tagIds.forEach(tag => {
-          acc[tag] = true;
+      const totalTags = podfics.reduce((acc, podfic) => {
+        podfic.tagIds.forEach(tagId => {
+          acc[tagId] = true;
         });
         return acc;
       }, {});
 
-      // fetch 'em
       const tagList = Object.keys(totalTags);
-      const tagPromises = tagList.map(tag => {
-        const tagParams = {
-          TableName: process.env.TAGS_TABLE,
-          KeyConditionExpression: "id = :id",
-          ExpressionAttributeValues: {
-            ":id": tag
-          }
-        };
-        return dynamoDb
-          .query(tagParams)
-          .promise()
-          .then(tag => tag.Items);
-      });
+      const tagPromises = fetchTags(tagList);
 
-      return Promise.all([items, Promise.all(tagPromises)]);
+      return Promise.all([podfics, tagPromises]);
     })
     .then(([podfics, tags]) => {
       const response = {
@@ -72,6 +77,9 @@ module.exports.getOne = (event, context, callback) => {
     .promise()
     .then(items => items.Items)
     .then(result => {
+      return Promise.all([result, fetchTags(result.tagIds)])
+    })
+    .then(result => {
       const response = {
         statusCode: 200,
         body: JSON.stringify(result)
@@ -79,3 +87,4 @@ module.exports.getOne = (event, context, callback) => {
       callback(null, response);
     });
 };
+
