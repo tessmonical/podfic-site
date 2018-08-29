@@ -1,0 +1,28 @@
+.single-podfic {
+    border: 1px solid darkred;
+    margin: 3vh;
+    padding: 2vh;
+}
+
+.single-podfic .podfic-title {
+    font-size: 14pt;
+}
+
+.single-podfic .reader-writer {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.single-podfic .posted-updated {
+    margin: 5px;
+    margin-left: 10px;
+}
+
+.single-podfic a {
+    text-decoration: none;
+    color: darkred;
+}
+
+.single-podfic a:hover {
+    text-decoration: underline;
+}

@@ -1,12 +1,18 @@
 import React, { Component, Fragment } from "react";
 import { Header } from "../../components/Header";
+import { SinglePodfic } from "../../components/SinglePodfic";
 
 class Home extends Component {
   render() {
+    const { podfics } = this.props;
     return (
       <Fragment>
         <Header />
-        <div>Main content</div>
+        <div className="podfic-list">
+          {podfics.map(podfic => (
+            <SinglePodfic podfic={podfic} />
+          ))}
+        </div>
       </Fragment>
     );
   }
