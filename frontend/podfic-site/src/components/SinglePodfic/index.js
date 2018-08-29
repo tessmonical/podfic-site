@@ -1,1 +1,1 @@
-export { default as SinglePodfic } from "./SinglePodfic";
+export { default as SinglePodfic } from './SinglePodfic';
