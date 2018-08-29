@@ -13,7 +13,8 @@ class SinglePodfic extends Component {
       writer,
       imageUrl,
       createdDate,
-      updatedDate
+      updatedDate,
+      tags,
     } = podfic;
     return (
       <div className="single-podfic">
@@ -26,6 +27,11 @@ class SinglePodfic extends Component {
         <div className="posted-updated">
           Posted on {moment(createdDate).format("YYYY-MM-DD")}, updated on{" "}
           {moment(updatedDate).format("YYYY-MM-DD")}
+        </div>
+        <div className="tags">
+        {tags && tags.map(tag => {
+          <Link to={`tags/${tag.id}`} />
+        })}
         </div>
       </div>
     );
