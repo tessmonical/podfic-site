@@ -1,9 +1,8 @@
 import { createStore, combineReducers } from "redux";
-
-const dummyReducer = (state = []) => state;
+import {podficReducer} from './podfics'
 
 const reducer = combineReducers({
-  reducer1: dummyReducer
+  podfics: podficReducer
 });
 
 export const store = createStore(
