@@ -2,7 +2,7 @@ const AWS = require("aws-sdk");
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 // helper function to fetch tags
-const fetchTags = (tagList) => {
+const fetchTags = tagList => {
   const tagPromises = tagList.map(tag => {
     const tagParams = {
       TableName: process.env.TAGS_TABLE,
@@ -18,7 +18,21 @@ const fetchTags = (tagList) => {
   });
 
   return Promise.all(tagPromises);
-}
+};
+
+const mergeTagsAndPodfics = (tags, podfics) => {
+  console.log("tags", tags);
+
+  const tagObj = tags.reduce((acc, tag) => {
+    acc[tag.id] = tag;
+    return acc;
+  }, {});
+
+  return podfics.map(podfic => {
+    podfic.tags = podfic.tagIds.map(tagId => tagObj[tagId]);
+    return podfic;
+  });
+};
 
 module.exports.getAll = (event, context, callback) => {
   const params = {
@@ -44,12 +58,15 @@ module.exports.getAll = (event, context, callback) => {
       return Promise.all([podfics, tagPromises]);
     })
     .then(([podfics, tags]) => {
+      console.log("podfics", podfics);
+      podfics = mergeTagsAndPodfics(tags, podfics);
+
+      console.log("podfics with tags", podfics);
+
+
       const response = {
         statusCode: 200,
-        body: JSON.stringify({
-          podfics,
-          tags
-        })
+        body: JSON.stringify(podfics)
       };
       callback(null, response);
     })
@@ -77,7 +94,7 @@ module.exports.getOne = (event, context, callback) => {
     .promise()
     .then(items => items.Items)
     .then(result => {
-      return Promise.all([result, fetchTags(result.tagIds)])
+      return Promise.all([result, fetchTags(result.tagIds)]);
     })
     .then(result => {
       const response = {
@@ -87,4 +104,3 @@ module.exports.getOne = (event, context, callback) => {
       callback(null, response);
     });
 };
-
