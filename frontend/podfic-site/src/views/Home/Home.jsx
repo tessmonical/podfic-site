@@ -14,7 +14,7 @@ class Home extends Component {
         <Header />
         <div className="podfic-list">
           {podfics.map(podfic => (
-            <SinglePodfic podfic={podfic} />
+            <SinglePodfic key={podfic.id} podfic={podfic} />
           ))}
         </div>
       </Fragment>
