@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import { Provider } from 'react-redux'
-
+import { Provider } from "react-redux";
+import { SinglePodficView } from "./views/SinglePodficView";
 import { Home } from "./views/Home";
-import {store} from './store'
+import { store } from "./store";
 
 import "./App.css";
 
@@ -11,7 +11,10 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Route exact path="/" component={Home} />
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/podfic/:id" component={SinglePodficView} />
+        </div>
       </Provider>
     );
   }
