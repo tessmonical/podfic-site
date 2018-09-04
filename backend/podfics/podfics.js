@@ -56,12 +56,12 @@ module.exports.getAll = (event, context, callback) => {
       return Promise.all([podfics, tagPromises]);
     })
     .then(([podfics, tags]) => {
-
       podfics = mergeTagsAndPodfics(tags, podfics);
 
       const response = {
         statusCode: 200,
-        body: JSON.stringify(podfics)
+        body: JSON.stringify(podfics),
+        headers: { "Access-Control-Allow-Origin": "*" }
       };
       callback(null, response);
     })
@@ -95,7 +95,8 @@ module.exports.getOne = (event, context, callback) => {
       podfic = mergeTagsAndPodfics(tags, [podfic])[0];
       const response = {
         statusCode: 200,
-        body: JSON.stringify(podfic)
+        body: JSON.stringify(podfic),
+        headers: { "Access-Control-Allow-Origin": "*" }
       };
       callback(null, response);
     });
