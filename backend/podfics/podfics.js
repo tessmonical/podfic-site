@@ -87,9 +87,9 @@ module.exports.getOne = (event, context, callback) => {
   dynamoDb
     .query(params)
     .promise()
-    .then(items => items.Items)
+    .then(items => items.Items[0])
     .then(podfic => {
-      return Promise.all([podfic, fetchTags(result.tagIds)]);
+      return Promise.all([podfic, fetchTags(podfic.tagIds)]);
     })
     .then(([podfic, tags]) => {
       podfic = mergeTagsAndPodfics(tags, [podfic])[0];
