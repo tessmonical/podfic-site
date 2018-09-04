@@ -21,8 +21,6 @@ const fetchTags = tagList => {
 };
 
 const mergeTagsAndPodfics = (tags, podfics) => {
-  console.log("tags", tags);
-
   const tagObj = tags.reduce((acc, tag) => {
     acc[tag.id] = tag;
     return acc;
@@ -58,11 +56,8 @@ module.exports.getAll = (event, context, callback) => {
       return Promise.all([podfics, tagPromises]);
     })
     .then(([podfics, tags]) => {
-      console.log("podfics", podfics);
+
       podfics = mergeTagsAndPodfics(tags, podfics);
-
-      console.log("podfics with tags", podfics);
-
 
       const response = {
         statusCode: 200,
@@ -93,13 +88,14 @@ module.exports.getOne = (event, context, callback) => {
     .query(params)
     .promise()
     .then(items => items.Items)
-    .then(result => {
-      return Promise.all([result, fetchTags(result.tagIds)]);
+    .then(podfic => {
+      return Promise.all([podfic, fetchTags(result.tagIds)]);
     })
-    .then(result => {
+    .then(([podfic, tags]) => {
+      podfic = mergeTagsAndPodfics(tags, [podfic])[0];
       const response = {
         statusCode: 200,
-        body: JSON.stringify(result)
+        body: JSON.stringify(podfic)
       };
       callback(null, response);
     });
