@@ -30,7 +30,7 @@ class SinglePodfic extends Component {
         </div>
         <div className="tags">
         {tags && tags.map(tag => {
-          <Link to={`tags/${tag.id}`} />
+          return (<Link to={`tags/${tag.id}`} />)
         })}
         </div>
       </div>

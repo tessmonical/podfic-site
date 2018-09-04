@@ -1,8 +1,20 @@
 import { connect } from "react-redux";
+import {fetchAllPodfics} from '../../store/podfics'
 import Home from './Home'
 
-const mapStateToProps = (state, ownProps) => ({
-    podfics:  [{
+const mapStateToProps = (state) => ({
+    podfics: state.podfics
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchAllPodfics: () => dispatch(fetchAllPodfics())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
+
+
+/*
+podfics:  [{
         "tagIds": [
             "1234567890abc"
         ],
@@ -59,6 +71,5 @@ const mapStateToProps = (state, ownProps) => ({
         "title": "This is not a real podfic"
     }
 ]
-})
 
-export default connect(mapStateToProps)(Home)
+*/

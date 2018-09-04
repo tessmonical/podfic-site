@@ -3,6 +3,10 @@ import { Header } from "../../components/Header";
 import { SinglePodfic } from "../../components/SinglePodfic";
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.fetchAllPodfics()
+  }
+
   render() {
     const { podfics } = this.props;
     return (
