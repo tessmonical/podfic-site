@@ -1,0 +1,14 @@
+.audio-player {
+    background-color: darkred;
+    color: white;
+    margin: 5px;
+    padding: 5px;
+}
+
+.audio-player--expanded-icon {
+    padding: 2px 5px;
+    margin: 2px;
+    color: darkred;
+    background-color: white;
+    border: 1px solid darkred;
+}

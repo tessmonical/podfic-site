@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { AudioPlayer } from "../AudioPlayer";
 import "./singlepodfic.css";
 
 class SinglePodfic extends Component {
@@ -15,7 +16,8 @@ class SinglePodfic extends Component {
       imageUrl,
       createdDate,
       updatedDate,
-      tags
+      tags,
+      files
     } = podfic;
     return (
       <div className="single-podfic">
@@ -37,7 +39,9 @@ class SinglePodfic extends Component {
         </div>
         {expanded && (
           <div className="audio-files-list">
-            LIST OF AUDIO FILES
+            {files.map(file => (
+              <AudioPlayer key={file.id }file={file} />
+            ))}
           </div>
         )}
       </div>
