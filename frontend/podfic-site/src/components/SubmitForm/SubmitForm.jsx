@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import "./submitform.css"
+import "./submitform.css";
 
 class SubmitForm extends Component {
   constructor(props) {
@@ -132,32 +132,37 @@ class SubmitForm extends Component {
               }
             />
           </div>
-          {files.map((file, i) => (
-            <div>
-              <div>
-                <label htmlFor={`file${i + 1}`}>{`Audio File ${i + 1}`}</label>
-                <input id={`file${i + 1}`} type="file" />
+
+          <fieldset>
+            <legend>Audio Files</legend>
+
+            {files.map((file, i) => (
+              <div className="file-input">
+                <div>
+                  <label htmlFor={`file${i + 1}`}>{`File ${i + 1}`}</label>
+                  <input id={`file${i + 1}`} type="file" />
+                </div>
+                <div>
+                  <label
+                    htmlFor={`filename${i + 1}`}
+                  >{`Short Description of file ${i + 1}`}</label>
+                  <input
+                    id={`filename${i + 1}`}
+                    type="text"
+                    value={file.description}
+                  />
+                </div>
+                <button
+                  className="remove-button"
+                  type="button"
+                  onClick={() => this.removeFile(i)}
+                >
+                  X
+                </button>
               </div>
-              <div>
-                <label
-                  htmlFor={`filename${i + 1}`}
-                >{`Short Description of Audio file ${i + 1}`}</label>
-                <input
-                  id={`filename${i + 1}`}
-                  type="text"
-                  value={file.description}
-                />
-              </div>
-              <button
-                className="remove-button"
-                type="button"
-                onClick={() => this.removeFile(i)}
-              >
-                X
-              </button>
-            </div>
-          ))}
-          <button type="button" onClick={this.addFile}>
+            ))}
+          </fieldset>
+          <button type="button" className="add-button" onClick={this.addFile}>
             Add another file
           </button>
 
