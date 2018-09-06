@@ -14,6 +14,7 @@ class SinglePodfic extends Component {
       reader,
       writer,
       imageUrl,
+      imageAlt,
       createdDate,
       updatedDate,
       tags,
@@ -23,7 +24,7 @@ class SinglePodfic extends Component {
       <Fragment>
         <div className="single-podfic">
           <div className={expanded ? "podfic-image expanded" : "podfic-image"}>
-            {imageUrl && <img src={imageUrl} />}
+            {imageUrl && <img src={imageUrl} alt={imageAlt || "Podfic Image" }/>}
           </div>
           <div className="podfic-info-box">
             <div className="podfic-title">
