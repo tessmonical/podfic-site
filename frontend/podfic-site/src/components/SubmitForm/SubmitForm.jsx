@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import {TermsOfService} from "../TOS";
+import { TermsOfService } from "../TOS";
 import "./submitform.css";
 
 const Required = ({ children }) => (
@@ -7,6 +7,13 @@ const Required = ({ children }) => (
     {children}
     <span className="required">*</span>
   </Fragment>
+);
+
+const Tooltip = ({ children, hoverText }) => (
+  <div className="tooltip">
+    {children}
+    <div className="tooltip-text">{hoverText}</div>
+  </div>
 );
 
 class SubmitForm extends Component {
@@ -60,16 +67,9 @@ class SubmitForm extends Component {
   }
 
   validateForm() {
-    const {
-      title,
-      files,
-      writer,
-      reader,
-      permissionCheckbox
-    } = this.state;
+    const { title, files, writer, reader, permissionCheckbox } = this.state;
 
-    if (title === "" || writer === "" || reader === "")
-      return false;
+    if (title === "" || writer === "" || reader === "") return false;
 
     if (files.length < 1) return false;
 
@@ -95,14 +95,18 @@ class SubmitForm extends Component {
         <form>
           <div className="metadata">
             <div>
-              <label htmlFor="title">
-                <Required>Title</Required>
-              </label>
-              <input
-                id="title"
-                value={title}
-                onChange={e => this.handleInputChange("title", e.target.value)}
-              />
+              <Tooltip hoverText="The title of the work you've podficced">
+                <label htmlFor="title">
+                  <Required>Title</Required>
+                </label>
+                <input
+                  id="title"
+                  value={title}
+                  onChange={e =>
+                    this.handleInputChange("title", e.target.value)
+                  }
+                />
+              </Tooltip>
             </div>
 
             <div>
@@ -132,7 +136,7 @@ class SubmitForm extends Component {
               />
             </div>
             <div>
-              <label htmlFor="writer-url">Writer Url</label>
+              <label htmlFor="writer-url">Writer URL</label>
               <input
                 id="writer-url"
                 value={writerUrl}
@@ -152,7 +156,7 @@ class SubmitForm extends Component {
               />
             </div>
             <div>
-              <label htmlFor="reader-url">Reader Url</label>
+              <label htmlFor="reader-url">Reader URL</label>
               <input
                 id="reader-url"
                 value={readerUrl}
@@ -200,7 +204,9 @@ class SubmitForm extends Component {
                       id={`filename${i + 1}`}
                       type="text"
                       value={file.description}
-                      onChange={(e)=> this.handleFileDescriptionChange(i, e.target.value)}
+                      onChange={e =>
+                        this.handleFileDescriptionChange(i, e.target.value)
+                      }
                     />
                   </div>
                 </div>

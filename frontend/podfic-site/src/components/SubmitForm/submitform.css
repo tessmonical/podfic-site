@@ -53,3 +53,25 @@
 .required {
     color: darkred;
 }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    position: absolute;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    background-color: darkred;
+    color: white;
+    border: 1px solid black;
+    top: -5px;
+    left: 105%; 
+    padding: 3px;
+    width: fit-content;
+    opacity: 95%;
+}
