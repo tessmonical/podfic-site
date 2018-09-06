@@ -6,7 +6,22 @@
 .submit-form > form {
     padding: 2%;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.submit-form .metadata {
+    display: flex;
     flex-direction: column;
+}
+
+.submit-form .metadata, .submit-form .files, .submit-form .confirmation {
+    min-width: 30%;
+    max-width: 80%;
+}
+
+.metadata input {
+    margin: 10px;
 }
 
 .submit-form .remove-button {

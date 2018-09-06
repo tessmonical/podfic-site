@@ -82,121 +82,132 @@ class SubmitForm extends Component {
     return (
       <div className="submit-form">
         <form>
-          <div>
-            <label htmlFor="title">Title</label>
-            <input
-              id="title"
-              value={title}
-              onChange={e => this.handleInputChange("title", e.target.value)}
-            />
-          </div>
+          <div className="metadata">
+            <div>
+              <label htmlFor="title">Title</label>
+              <input
+                id="title"
+                value={title}
+                onChange={e => this.handleInputChange("title", e.target.value)}
+              />
+            </div>
 
-          <div>
-            <label htmlFor="image-upload">Image File</label>
-            <input id="image-upload" type="file" />
-          </div>
+            <div>
+              <label htmlFor="image-upload">Image File</label>
+              <input id="image-upload" type="file" />
+            </div>
 
-          <div>
-            <label htmlFor="writer">Writer Name</label>
-            <input
-              id="writer"
-              value={writer}
-              onChange={e => this.handleInputChange("writer", e.target.value)}
-            />
+            <div>
+              <label htmlFor="writer">Writer Name</label>
+              <input
+                id="writer"
+                value={writer}
+                onChange={e => this.handleInputChange("writer", e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="writer-url">Writer Url</label>
+              <input
+                id="writer-url"
+                value={writerUrl}
+                onChange={e =>
+                  this.handleInputChange("writerUrl", e.target.value)
+                }
+              />
+            </div>
+            <div>
+              <label htmlFor="reader">Reader</label>
+              <input
+                id="reader"
+                value={reader}
+                onChange={e => this.handleInputChange("reader", e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="reader-url">Reader Url</label>
+              <input
+                id="reader-url"
+                value={readerUrl}
+                onChange={e =>
+                  this.handleInputChange("readerUrl", e.target.value)
+                }
+              />
+            </div>
           </div>
-          <div>
-            <label htmlFor="writer-url">Writer Url</label>
-            <input
-              id="writer-url"
-              value={writerUrl}
-              onChange={e =>
-                this.handleInputChange("writerUrl", e.target.value)
-              }
-            />
-          </div>
-          <div>
-            <label htmlFor="reader">Reader</label>
-            <input
-              id="reader"
-              value={reader}
-              onChange={e => this.handleInputChange("reader", e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="reader-url">Reader Url</label>
-            <input
-              id="reader-url"
-              value={readerUrl}
-              onChange={e =>
-                this.handleInputChange("readerUrl", e.target.value)
-              }
-            />
-          </div>
-
-          <fieldset>
-            <legend>Audio Files</legend>
-
-            {files.map((file, i) => (
-              <div className="file-input">
-                <div>
-                  <label htmlFor={`file${i + 1}`}>{`File ${i + 1}`}</label>
-                  <input id={`file${i + 1}`} type="file" />
+          <div className="files">
+            <fieldset>
+              <legend>Audio Files</legend>
+              {files.map((file, i) => (
+                <div className="file-input">
+                  <button
+                    className="remove-button"
+                    type="button"
+                    onClick={() => this.removeFile(i)}
+                  >
+                    X
+                  </button>
+                  <div>
+                    <label htmlFor={`file${i + 1}`}>{`File ${i + 1}`}</label>
+                    <input id={`file${i + 1}`} type="file" />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor={`filename${i + 1}`}
+                    >{`Short Description of file ${i + 1}`}</label>
+                    <input
+                      id={`filename${i + 1}`}
+                      type="text"
+                      value={file.description}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label
-                    htmlFor={`filename${i + 1}`}
-                  >{`Short Description of file ${i + 1}`}</label>
-                  <input
-                    id={`filename${i + 1}`}
-                    type="text"
-                    value={file.description}
-                  />
-                </div>
-                <button
-                  className="remove-button"
-                  type="button"
-                  onClick={() => this.removeFile(i)}
-                >
-                  X
-                </button>
-              </div>
-            ))}
-          </fieldset>
-          <button type="button" className="add-button" onClick={this.addFile}>
-            Add another file
-          </button>
-
-          <div>
-            <input
-              id="agreeCheckbox"
-              type="checkbox"
-              checked={permissionCheckbox}
-            />
-            <label htmlFor="agreeCheckbox">
-              I agree to the terms and conditions:
-              <ol>
-                <li>
-                  Don't upload copyrighted music or other audio except as
-                  allowed by USA fair use rules- we don't want to get in
-                  trouble.
-                </li>
-                <li>
-                  Get permission to podfic other's work. We don't check you on
-                  this- but if we get complaints, your work may be taken down
-                </li>
-                <li>
-                  Please maintain backups of your own works. While we will make
-                  every effort to keep files from getting lost, this site is
-                  very much in beta and it is possible that data may be lost
-                </li>
-                <li>Don't be a jerk. Don't harrass other users in any way.</li>
-              </ol>
-            </label>
+              ))}
+              <button
+                type="button"
+                className="add-button"
+                onClick={this.addFile}
+              >
+                Add another file
+              </button>
+            </fieldset>
           </div>
+          <div className="confirmation">
+            <div>
+              <input
+                id="agreeCheckbox"
+                type="checkbox"
+                checked={permissionCheckbox}
+              />
+              <label htmlFor="agreeCheckbox">
+                I agree to the terms and conditions:
+                <ol>
+                  <li>
+                    Don't upload copyrighted music or other audio except as
+                    allowed by USA fair use rules- we don't want to get in
+                    trouble, and we're based in the US. Follow relevant laws for
+                    your country as well.
+                  </li>
+                  <li>
+                    Get permission to podfic other's work. We don't check you on
+                    this- but if we get complaints, your work may be taken down.
+                  </li>
+                  <li>
+                    Please maintain backups of your own works. While we will
+                    make every effort to keep files from getting lost, this site
+                    is very much in beta and it is possible that data may be
+                    lost.
+                  </li>
+                  <li>
+                    Don't be a jerk. Don't harrass other users in any way.
+                  </li>
+                </ol>
+              </label>
+            </div>
 
-          <button type="submit" disabled={!this.validateForm()}>
-            Submit
-          </button>
+            <button type="submit" disabled={!this.validateForm()}>
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     );
