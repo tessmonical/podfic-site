@@ -37,10 +37,10 @@
 }
 
 
-.single-podfic .podfic-image img {
-    max-width: 150px;
+.single-podfic .podfic-image {
+    width: 20%;
 }
 
-.single-podfic .podfic-image.expanded {
-    width: 20%;
+.single-podfic .podfic-image img {
+    max-width: 100%;
 }
