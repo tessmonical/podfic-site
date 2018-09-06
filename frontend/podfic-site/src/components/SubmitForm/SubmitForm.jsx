@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import {TermsOfService} from "../TOS";
 import "./submitform.css";
 
 const Required = ({ children }) => (
@@ -64,11 +65,10 @@ class SubmitForm extends Component {
       files,
       writer,
       reader,
-      textUrl,
       permissionCheckbox
     } = this.state;
 
-    if (title === "" || writer === "" || reader === "" || textUrl === "")
+    if (title === "" || writer === "" || reader === "")
       return false;
 
     if (files.length < 1) return false;
@@ -200,6 +200,7 @@ class SubmitForm extends Component {
                       id={`filename${i + 1}`}
                       type="text"
                       value={file.description}
+                      onChange={(e)=> this.handleFileDescriptionChange(i, e.target.value)}
                     />
                   </div>
                 </div>
@@ -226,32 +227,7 @@ class SubmitForm extends Component {
               />
               <label htmlFor="agreeCheckbox">
                 <Required>I agree to the terms and conditions</Required>:
-                <ol>
-                  <li>
-                    Don't upload copyrighted music or other copyrighted audio
-                    except as allowed by USA fair use rules- we don't want to
-                    get in trouble, and we're based in the US. Follow relevant
-                    laws for your country as well.
-                  </li>
-                  <li>
-                    Get permission to podfic other's works. We don't check you
-                    on this- but if we get complaints from the writer, your work
-                    may be taken down.
-                  </li>
-                  <li>
-                    Please maintain backups of your own works. While we will
-                    make every effort to keep files from getting lost, this site
-                    is very much in beta and it is possible that data may be
-                    lost.
-                  </li>
-                  <li>
-                    Don't be a jerk. Don't harrass other users in any way.
-                  </li>
-                  <li>
-                    For the time being, I'm moderating these manually. Please
-                    have patience as I work through the queue.
-                  </li>
-                </ol>
+                <TermsOfService />
               </label>
             </div>
 
