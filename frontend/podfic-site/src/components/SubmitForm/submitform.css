@@ -69,9 +69,10 @@
     background-color: darkred;
     color: white;
     border: 1px solid black;
-    top: -5px;
+    top: -5%;
     left: 105%; 
-    padding: 3px;
+    padding: 5px;
     width: fit-content;
-    opacity: 95%;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    z-index: 2;
 }

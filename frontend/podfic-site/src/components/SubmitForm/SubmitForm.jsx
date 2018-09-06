@@ -94,8 +94,8 @@ class SubmitForm extends Component {
       <div className="submit-form">
         <form>
           <div className="metadata">
-            <div>
-              <Tooltip hoverText="The title of the work you've podficced">
+            <Tooltip hoverText="The title of the work you've podficced">
+              <div>
                 <label htmlFor="title">
                   <Required>Title</Required>
                 </label>
@@ -106,19 +106,21 @@ class SubmitForm extends Component {
                     this.handleInputChange("title", e.target.value)
                   }
                 />
-              </Tooltip>
-            </div>
+              </div>
+            </Tooltip>
 
-            <div>
-              <label htmlFor="textUrl">Text URL</label>
-              <input
-                id="textUrl"
-                value={textUrl}
-                onChange={e =>
-                  this.handleInputChange("textUrl", e.target.value)
-                }
-              />
-            </div>
+            <Tooltip hoverText="URL for the original text, if you have one">
+              <div>
+                <label htmlFor="textUrl">Text URL</label>
+                <input
+                  id="textUrl"
+                  value={textUrl}
+                  onChange={e =>
+                    this.handleInputChange("textUrl", e.target.value)
+                  }
+                />
+              </div>
+            </Tooltip>
 
             <div>
               <label htmlFor="image-upload">Image File</label>
