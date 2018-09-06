@@ -3,6 +3,10 @@
     padding: 5%;
 }
 
+.submit-form input[type=text] {
+    width: 50%;
+}
+
 .submit-form > form {
     padding: 2%;
     display: flex;
@@ -20,19 +24,32 @@
     max-width: 80%;
 }
 
-.metadata input {
+.metadata input, .files input {
     margin: 10px;
+}
+
+.files .file-input {
+    padding-left: 45px;
+    position: relative;
 }
 
 .submit-form .remove-button {
     color: white;
-    background-color: darkred;
+    background-color: rgb(182, 0, 0);
     border-radius: 50%;
     height: 25px;
     width: 25px;
+    position: absolute;
+    left: 0px;
+    top: 25px;
 }
 
 .submit-form .add-button {
     color: white;
     background-color: darkgreen;
+    font-size: 1em;
+}
+
+.required {
+    color: darkred;
 }
