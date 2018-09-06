@@ -7,7 +7,12 @@ class Header extends Component {
   render() {
     return (
       <header className="header-main">
-        <Link to="/">Podfic Site</Link>
+        <div className="main-link">
+          <Link to="/">Podfic Site</Link>
+        </div>
+        <nav>
+          <Link to="/submit">Submit a Podfic</Link>
+        </nav>
       </header>
     );
   }

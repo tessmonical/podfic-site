@@ -1,14 +1,26 @@
 header.header-main {
-    background-color: darkred;
-    width: 100%;
-    padding: 10px;
-    color: white;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-    font-size: 18pt;
+  background-color: darkred;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.header-main .main-link {
+  font-size: 18pt;
 }
 
 header.header-main a {
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.header-main > a {
+  font-size: 18pt;
+}
+
+.header-main nav, .header-main div {
+    display: inline-block;
+    padding-right: 5%;
 }
