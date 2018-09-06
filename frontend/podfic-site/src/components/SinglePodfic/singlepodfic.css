@@ -2,6 +2,15 @@
     border: 1px solid darkred;
     margin: 3vh;
     padding: 2vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.single-podfic .podfic-info-box {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 15px;
 }
 
 .single-podfic .podfic-title {
@@ -25,4 +34,13 @@
 
 .single-podfic a:hover {
     text-decoration: underline;
+}
+
+
+.single-podfic .podfic-image img {
+    max-width: 150px;
+}
+
+.single-podfic .podfic-image.expanded {
+    width: 20%;
 }
