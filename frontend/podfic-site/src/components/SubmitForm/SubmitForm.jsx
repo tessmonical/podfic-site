@@ -23,7 +23,7 @@ class SubmitForm extends Component {
       title: "",
       textUrl: "",
       imageFile: null,
-      files: [{ description: "", file: null }],
+      filesDescriptions: [""],
       writer: "",
       authorUrl: "",
       reader: "",
@@ -36,17 +36,22 @@ class SubmitForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.fileRefs = [];
   }
 
   removeFile(indexToRemove) {
     this.setState({
-      files: this.state.files.filter((file, i) => i !== indexToRemove)
+      filesDescriptions: this.state.filesDescriptions.filter(
+        (file, i) => i !== indexToRemove
+      )
     });
+    this.fileRefs.splice(indexToRemove, 1);
   }
 
   addFile() {
     this.setState({
-      files: [...this.state.files, { description: "", file: null }]
+      filesDescriptions: [...this.state.filesDescriptions, ""]
     });
   }
 
@@ -59,29 +64,50 @@ class SubmitForm extends Component {
   }
 
   handleFileDescriptionChange(index, newText) {
-    const newFiles = this.state.files.slice();
-    newFiles[index].description = newText;
+    const newFiles = this.state.filesDescriptions.slice();
+    newFiles[index] = newText;
     this.setState({
-      files: newFiles
+      filesDescriptions: newFiles
     });
   }
 
   validateForm() {
-    const { title, files, writer, reader, permissionCheckbox } = this.state;
+    const {
+      title,
+      filesDescriptions,
+      writer,
+      reader,
+      permissionCheckbox
+    } = this.state;
 
     if (title === "" || writer === "" || reader === "") return false;
 
-    if (files.length < 1) return false;
+    if (filesDescriptions.length < 1) return false;
 
     if (!permissionCheckbox) return false;
 
     return true;
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const {
+      title,
+      filesDescriptions,
+      writer,
+      writerUrl,
+      reader,
+      readerUrl,
+      textUrl,
+      contactEmail,
+      permissionCheckbox
+    } = this.state;
+  }
+
   render() {
     const {
       title,
-      files,
+      filesDescriptions,
       writer,
       writerUrl,
       reader,
@@ -92,7 +118,7 @@ class SubmitForm extends Component {
     } = this.state;
     return (
       <div className="submit-form">
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className="metadata">
             <Tooltip hoverText="The title of the work you've podficced">
               <div>
@@ -185,7 +211,7 @@ class SubmitForm extends Component {
               <legend>
                 <Required>Audio Files</Required>
               </legend>
-              {files.map((file, i) => (
+              {filesDescriptions.map((file, i) => (
                 <div className="file-input">
                   <button
                     className="remove-button"
@@ -196,7 +222,13 @@ class SubmitForm extends Component {
                   </button>
                   <div>
                     <label htmlFor={`file${i + 1}`}>{`File ${i + 1}`}</label>
-                    <input id={`file${i + 1}`} type="file" />
+                    <input
+                      id={`file${i + 1}`}
+                      type="file"
+                      ref={ref => {
+                        this.fileRefs[i] = ref;
+                      }}
+                    />
                   </div>
                   <div>
                     <label
