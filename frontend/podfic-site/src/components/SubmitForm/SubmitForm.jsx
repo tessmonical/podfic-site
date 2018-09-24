@@ -22,10 +22,9 @@ class SubmitForm extends Component {
     this.state = {
       title: "",
       textUrl: "",
-      imageFile: null,
       filesDescriptions: [""],
       writer: "",
-      authorUrl: "",
+      writerUrl: "",
       reader: "",
       readerUrl: "",
       contactEmail: "",
@@ -38,6 +37,7 @@ class SubmitForm extends Component {
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.fileRefs = [];
+    this.imageRef = null;
   }
 
   removeFile(indexToRemove) {

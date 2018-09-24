@@ -23,8 +23,14 @@ provider:
     READER_TABLE: readers-${opt:stage, self:provider.stage}
     TAGS_TABLE: tags-${opt:stage, self:provider.stage}
     WRITER_TABLE: writers-${opt:stage, self:provider.stage}
+    S3_BUCKET_IMAGES: podfic-images-${opt:stage, self:provider.stage}
+    S3_BUCKET_PODFICS: podfics-${opt:stage, self:provider.stage}
 
   iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "s3:ListBucket"
+      Resource: "arn:aws:s3:::podfics-dev"
     - Effect: Allow
       Action:
         - dynamodb:Query
@@ -62,15 +68,6 @@ provider:
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.WRITER_TABLE}"
 
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
-
 functions:
   getAllPodfics:
     handler: podfics.getAll
@@ -101,14 +98,3 @@ functions:
             parameters:
               paths:
                 id: true
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"

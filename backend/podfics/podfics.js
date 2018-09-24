@@ -1,5 +1,7 @@
 const AWS = require("aws-sdk");
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
+const s3 = new AWS.S3();
+const uuid = require("uuid/v5");
 
 // helper function to fetch tags
 const fetchTags = tagList => {
@@ -100,4 +102,73 @@ module.exports.getOne = (event, context, callback) => {
       };
       callback(null, response);
     });
+};
+
+
+module.exports.postOne = (event, context, callback) => {
+  // we explicity select only the fields we would like from the body
+  const {
+    title,
+    textUrl,
+    imageFile,
+    filesDescriptions,
+    writer,
+    writerUrl,
+    reader,
+    readerUrl,
+    contactEmail,
+    files
+  } = event.body;
+
+  const imageKey = uuid("podfics", uuid.URL);
+
+  // upload image file to bucket
+  const s3ParamsImages = {
+    Bucket: S3_BUCKET_IMAGES,
+    Key: imageKey,
+    Body: imageFile
+  };
+  const imagePromise = s3.upload(s3ParamsImages).promise();
+
+  // upload sound files to bucket
+  const fileKeys = files.map(file => uuid("podfics", uuid.URL));
+
+  const filePromises = Promise.all(
+    files.map((file, i) => {
+      const s3ParamsImages = {
+        Bucket: S3_BUCKET_PODFICS,
+        Key: fileKeys[i],
+        Body: file
+      };
+      return s3.upload(s3ParamsImages).promise();
+    })
+  );
+  const ready = Promise.all([imagePromise, filePromises]);
+
+  //create a record of the podfic in our database
+  ready.then(() => {
+    const podfic = {
+      title,
+      textUrl,
+      filesDescriptions,
+      writer,
+      writerUrl,
+      reader,
+      readerUrl,
+      approved: false
+    };
+    var params = {
+      TableName: process.env.PODFIC_TABLE,
+      Item: podfic
+    };
+
+  })
+  .then(() => {
+    console.log('seems to be working!')
+    // email me and the person who uploaded the podfic
+  })
+  .catch(() => {
+    // something went wrong
+    console.log('oh no! something went wrong!')
+  })
 };
