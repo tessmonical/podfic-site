@@ -69,6 +69,13 @@ provider:
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.WRITER_TABLE}"
 
 functions:
+  postOnePodfic:
+    handler: podfics.postOne
+    events:
+      - http:
+          path: api/podfics/postOne
+          method: post
+          cors: true
   getAllPodfics:
     handler: podfics.getAll
     events:
