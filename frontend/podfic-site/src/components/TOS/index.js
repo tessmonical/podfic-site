@@ -2,7 +2,7 @@ import React from "react";
 
 
 export const TermsOfService = () => (
-    <ol>
+  <ol>
     <li>
       This is a site intended for posting podfic, filk, and other
       fannish audio. If you can make an argument that it belongs
