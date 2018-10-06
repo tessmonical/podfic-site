@@ -148,68 +148,87 @@ class SubmitForm extends Component {
               </div>
             </Tooltip>
 
-            <div>
-              <label htmlFor="image-upload">Image File</label>
-              <input id="image-upload" type="file" />
-            </div>
+            <Tooltip hoverText="Cover image for your podfic. Square works best.">
+              <div>
+                <label htmlFor="image-upload">Image File</label>
+                <input id="image-upload" type="file" />
+              </div>
+            </Tooltip>
 
-            <div>
-              <label htmlFor="writer">
-                <Required>Writer Name</Required>
-              </label>
-              <input
-                id="writer"
-                value={writer}
-                onChange={e => this.handleInputChange("writer", e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="writer-url">Writer URL</label>
-              <input
-                id="writer-url"
-                value={writerUrl}
-                onChange={e =>
-                  this.handleInputChange("writerUrl", e.target.value)
-                }
-              />
-            </div>
-            <div>
-              <label htmlFor="reader">
-                <Required>Reader</Required>
-              </label>
-              <input
-                id="reader"
-                value={reader}
-                onChange={e => this.handleInputChange("reader", e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="reader-url">Reader URL</label>
-              <input
-                id="reader-url"
-                value={readerUrl}
-                onChange={e =>
-                  this.handleInputChange("readerUrl", e.target.value)
-                }
-              />
-            </div>
-            <div>
-              <label htmlFor="contactEmail">
-                <Required>Contact Email</Required>
-              </label>
-              <input
-                id="contactEmail"
-                value={contactEmail}
-                onChange={e =>
-                  this.handleInputChange("contactEmail", e.target.value)
-                }
-              />
-            </div>
+            <Tooltip hoverText="Name/username of the writer of the original text">
+              <div>
+                <label htmlFor="writer">
+                  <Required>Writer Name</Required>
+                </label>
+                <input
+                  id="writer"
+                  value={writer}
+                  onChange={e => this.handleInputChange("writer", e.target.value)}
+                />
+              </div>
+            </Tooltip>
+
+            <Tooltip hoverText="URL for the writer's profile">
+              <div>
+                <label htmlFor="writer-url">Writer URL</label>
+                <input
+                  id="writer-url"
+                  value={writerUrl}
+                  onChange={e =>
+                    this.handleInputChange("writerUrl", e.target.value)
+                  }
+                />
+              </div>
+            </Tooltip>
+
+            <Tooltip hoverText="Podfic reader's name/username">
+              <div>
+                <label htmlFor="reader">
+                  <Required>Reader</Required>
+                </label>
+                <input
+                  id="reader"
+                  value={reader}
+                  onChange={e => this.handleInputChange("reader", e.target.value)}
+                />
+              </div>
+            </Tooltip>
+
+            <Tooltip hoverText="URL for the podfic reader's profile">
+              <div>
+                <label htmlFor="reader-url">Reader URL</label>
+                <input
+                  id="reader-url"
+                  value={readerUrl}
+                  onChange={e =>
+                    this.handleInputChange("readerUrl", e.target.value)
+                  }
+                />
+              </div>
+            </Tooltip>
+
+            <Tooltip hoverText="Your contact email, for any questions the mods have when uploading the podfic. (Will not be published or spammed)">
+              <div>
+                <label htmlFor="contactEmail">
+                  <Required>Contact Email</Required>
+                </label>
+                <input
+                  id="contactEmail"
+                  value={contactEmail}
+                  onChange={e =>
+                    this.handleInputChange("contactEmail", e.target.value)
+                  }
+                />
+              </div>
+            </Tooltip>
           </div>
+
           <div className="files">
             <fieldset>
               <legend>
-                <Required>Audio Files</Required>
+                <Tooltip hoverText="The audio files you would like to upload. You must upload at least one. Supported formats: mp3, m4a, m4b">
+                  <Required>Audio Files</Required>
+                </Tooltip>
               </legend>
               {filesDescriptions.map((file, i) => (
                 <div className="file-input">
@@ -231,9 +250,11 @@ class SubmitForm extends Component {
                     />
                   </div>
                   <div>
-                    <label
-                      htmlFor={`filename${i + 1}`}
-                    >{`Short Description of file ${i + 1}`}</label>
+                    <Tooltip hoverText="A label to identify your file if you're uploading more than one. For example, 'with music' or 'mp3 version'">
+                      <label
+                        htmlFor={`filename${i + 1}`}
+                      >{`Short Description of file ${i + 1}`}</label>
+                    </Tooltip>
                     <input
                       id={`filename${i + 1}`}
                       type="text"
@@ -280,7 +301,7 @@ class SubmitForm extends Component {
             </button>
           </div>
         </form>
-      </div>
+      </div >
     );
   }
 }
