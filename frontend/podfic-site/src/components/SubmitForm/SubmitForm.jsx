@@ -9,10 +9,12 @@ const Required = ({ children }) => (
   </Fragment>
 );
 
-const Tooltip = ({ children, hoverText }) => (
+const Tooltip = ({ children, hoverText, right }) => (
   <div className="tooltip">
-    {children}
-    <div className="tooltip-text">{hoverText}</div>
+  {children}
+    <div className={`tooltip-text${right ? " right" : ""}`}>
+    {hoverText}
+    </div>
   </div>
 );
 
@@ -207,7 +209,7 @@ class SubmitForm extends Component {
               </div>
             </Tooltip>
 
-            <Tooltip hoverText="Your contact email, for any questions the mods have when uploading the podfic. (Will not be published or spammed)">
+            <Tooltip hoverText="Your contact email, for notifying you that the podfic is uploaded or if we have questions. (Will not be published or spammed)">
               <div>
                 <label htmlFor="contactEmail">
                   <Required>Contact Email</Required>
@@ -226,7 +228,7 @@ class SubmitForm extends Component {
           <div className="files">
             <fieldset>
               <legend>
-                <Tooltip hoverText="The audio files you would like to upload. You must upload at least one. Supported formats: mp3, m4a, m4b">
+                <Tooltip right hoverText="The audio files you would like to upload. You must upload at least one. Supported formats: mp3, m4a, m4b">
                   <Required>Audio Files</Required>
                 </Tooltip>
               </legend>
@@ -250,7 +252,7 @@ class SubmitForm extends Component {
                     />
                   </div>
                   <div>
-                    <Tooltip hoverText="A label to identify your file if you're uploading more than one. For example, 'with music' or 'mp3 version'">
+                    <Tooltip right hoverText="A label to identify your file if you're uploading more than one. For example, 'with music' or 'mp3 version'">
                       <label
                         htmlFor={`filename${i + 1}`}
                       >{`Short Description of file ${i + 1}`}</label>
