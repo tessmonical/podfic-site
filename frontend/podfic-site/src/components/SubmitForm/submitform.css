@@ -8,7 +8,7 @@
 }
 
 .submit-form > form {
-    padding: 2%;
+    padding: 5%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -66,13 +66,13 @@
 
 .tooltip:hover .tooltip-text {
     visibility: visible;
-    background-color: darkred;
+    background-color: rgba(139, 0, 0, 0.596);
     color: white;
     border: 1px solid black;
     top: -5%;
-    left: 105%; 
+    left: -40%;
     padding: 5px;
-    width: fit-content;
+    width: 35%;
     box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
     z-index: 2;
 }
