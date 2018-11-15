@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { TermsOfService } from "../TOS";
+import {Tooltip} from '../Tooltip'
 import "./submitform.css";
 
 const Required = ({ children }) => (
@@ -7,15 +8,6 @@ const Required = ({ children }) => (
     {children}
     <span className="required">*</span>
   </Fragment>
-);
-
-const Tooltip = ({ children, hoverText, right }) => (
-  <div className="tooltip">
-  {children}
-    <div className={`tooltip-text${right ? " right" : ""}`}>
-    {hoverText}
-    </div>
-  </div>
 );
 
 class SubmitForm extends Component {
